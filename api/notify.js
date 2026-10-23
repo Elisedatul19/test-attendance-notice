@@ -104,27 +104,27 @@ export async function POST(request) {
           body: cardBody,
           actions: [
             actions: [
-  {
-    type: "Action.Submit",
-    title: isOnsite ? "Plotted" : "Confirmed",
-    style: "positive",
-    data: {
-      action: isOnsite ? "plotted" : "confirmed",
-      agentEmail: email,
-      agentName: name
-    }
-  },
-  {
-    type: "Action.Submit",
-    title: "Denied",
-    style: "destructive",
-    data: {
-      action: "denied",
-      agentEmail: email,
-      agentName: name
-    }
-  }
-]
+          {
+            type: "Action.Submit",
+            title: isOnsite ? "Plotted" : "Confirmed",
+            style: "positive",
+            data: {
+              action: isOnsite ? "plotted" : "confirmed",
+              agentEmail: email,
+              agentName: name
+            }
+          },
+          {
+            type: "Action.Submit",
+            title: "Denied",
+            style: "destructive",
+            data: {
+              action: "denied",
+              agentEmail: email,
+              agentName: name
+            }
+          }
+        ]
       },
     ],
   };
