@@ -122,9 +122,9 @@ export async function POST(request) {
               action: "denied",
               agentEmail: email,
               agentName: name
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
     ],
   };
