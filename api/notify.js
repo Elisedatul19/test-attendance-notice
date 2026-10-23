@@ -107,7 +107,9 @@ export async function POST(request) {
               type: "Action.Submit",
               title: isOnsite ? "Plotted" : "Confirmed",
               style: "positive",
-              data: { action: "confirm" },
+              data: {
+                action: "denied"
+              }
             },
             {
               type: "Action.Submit",
