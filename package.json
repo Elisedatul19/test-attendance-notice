@@ -1,16 +1,3 @@
-"actions": [
-  {
-    "type": "Action.Submit",
-    "title": "Confirmed",
-    "data": {
-      "response": "Confirmed"
-    }
-  },
-  {
-    "type": "Action.Submit",
-    "title": "Deny",
-    "data": {
-      "response": "Deny"
-    }
-  }
-]
+{
+  "type": "module"
+}
