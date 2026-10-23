@@ -6,7 +6,6 @@ const hoursUntilShiftManila = (dateStr, shiftStr) => {
   if (!m || !d) return null;
   let h = parseInt(m[1], 10) % 12;
   if (m[3].toUpperCase() === "PM") h += 12;
-  // Manila is UTC+8 with no daylight saving, so subtract 8 hours to get UTC
   const shiftUtc = Date.UTC(+d[1], +d[2] - 1, +d[3], h - 8, parseInt(m[2], 10));
   return (shiftUtc - Date.now()) / 36e5;
 };
@@ -24,7 +23,6 @@ const offsetRange = dt => {
   return [fmtD(mon), fmtD(fri)];
 };
 
-// AGENT_EMAILS is a JSON object in Vercel: {"Agent Name":"agent@company.com", ...}
 const emailFor = name => {
   try {
     const map = JSON.parse(process.env.AGENT_EMAILS || "{}");
@@ -83,7 +81,6 @@ export async function POST(request) {
   ];
   if (isOnsite) facts.push({ title: "Onsite offset date", value: offsetDate });
 
-  // body[0] = title, body[1] = facts, body[2] = hidden email (only if the agent has one)
   const cardBody = [
     { type: "TextBlock", text: "Attendance Notice", weight: "Bolder", size: "Large" },
     { type: "FactSet", facts },
@@ -103,28 +100,9 @@ export async function POST(request) {
           version: "1.4",
           body: cardBody,
           actions: [
-            actions: [
-          {
-            type: "Action.Submit",
-            title: isOnsite ? "Plotted" : "Confirmed",
-            style: "positive",
-            data: {
-              action: isOnsite ? "plotted" : "confirmed",
-              agentEmail: email,
-              agentName: name
-            }
-          },
-          {
-            type: "Action.Submit",
-            title: "Denied",
-            style: "destructive",
-            data: {
-              action: "denied",
-              agentEmail: email,
-              agentName: name
-            },
-          },
-        ],
+            { type: "Action.Submit", title: isOnsite ? "Plotted" : "Confirmed", data: { action: "confirm" } },
+          ],
+        },
       },
     ],
   };
