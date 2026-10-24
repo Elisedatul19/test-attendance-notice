@@ -45,7 +45,12 @@ export async function POST(request) {
   if (!name || !team || !shift || !type || !date) {
     return Response.json({ error: "Missing required fields" }, { status: 400 });
   }
-
+  if (!reason || !String(reason).trim()) {
+    return Response.json({ error: "Reason is required" }, { status: 400 });
+  }
+  if (type === "Running Late" && !time) {
+    return Response.json({ error: "Expected time is required for Running Late" }, { status: 400 });
+  }
   const isOnsite = type === ONSITE;
   if (isOnsite) {
     const missed = parseD(date);
